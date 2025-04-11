@@ -1,7 +1,7 @@
+Find the accepted hash setup: 
 smb2.cmd == 1 and smb2.nt_status == 0x00000000
 or smb2.cmd == 0x01 and smb2.nt_status == 0
 
-Credit to https://hackmd.io/@trithong1906/S1NvrQ_T1x
 
 Format hash:
 
@@ -25,3 +25,5 @@ Remember: User::Domain:ServerChallenge:NTProofStr:NTLMv2Response
 Hashcat to crack:
 
 ``hashcat -a 0 -m 5600 hash.txt rockyou.txt``
+
+Credit to @trithong1906
