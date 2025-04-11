@@ -3,7 +3,7 @@ win() function is located somewhere else in the binary, not being called.
 
 Solution: Overflow the return address and point it to the win() function.
 
-Find the buffer (which was 64 characters) and then add 8 since it's a 64 bit binary. Reverse since it's little endian. (or just use pwntools)
+Find the buffer (which was 64 characters) and then add 8. Reverse since it's little endian. (or just use pwntools)
 ```
 from pwn import *            # This is how we import pwntools
 
